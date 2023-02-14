@@ -1,0 +1,37 @@
+pipeline {
+    agent none
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+        ansiColor('xterm')
+        retry(3)
+        timestamps()
+    }
+
+    stages{
+        stage('Checkout SCM') {
+            agent any
+            steps{
+                git 'https://github.com/yongqilei/spring-boot-demo'
+                echo "currentWorkspace: ${WORKSPACE}"
+                buildName "${BRANCH_NAME}"
+                stash 'scm'
+            }
+        }
+
+        stage("Build") {
+            agent any
+            steps{
+                unstash 'scm'
+                withGradle {
+                    sh './gradle build'
+                }
+            }
+            post{
+                always {
+                    echo 'Build Completed'
+                }
+            }
+        }
+    }
+}
+
