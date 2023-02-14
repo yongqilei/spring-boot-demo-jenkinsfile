@@ -2,7 +2,6 @@ pipeline {
     agent none
     options {
         timeout(time: 20, unit: 'MINUTES')
-        ansiColor('xterm')
         retry(3)
         timestamps()
     }
