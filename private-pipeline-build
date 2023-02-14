@@ -12,7 +12,7 @@ pipeline {
             steps{
                 git 'https://github.com/yongqilei/spring-boot-demo'
                 echo "currentWorkspace: ${WORKSPACE}"
-                buildName "${BRANCH_NAME}"
+                buildName "${GIT_BRANCH}"
                 stash 'scm'
             }
         }
