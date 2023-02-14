@@ -22,7 +22,7 @@ pipeline {
             steps{
                 unstash 'scm'
                 withGradle {
-                    sh './gradle build'
+                    sh './gradlew build'
                 }
             }
             post{
