@@ -21,8 +21,10 @@ pipeline {
             agent any
             steps{
                 unstash 'scm'
-                withGradle {
-                    sh './gradlew build'
+                node {
+                    withGradle {
+                        sh './gradlew build'
+                    }
                 }
             }
             post{
